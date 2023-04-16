@@ -1,0 +1,99 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Node",
+"class": "AsyncShellNode",
+"language": "GDScript",
+"path": "res://script/AsyncShellNode.gd"
+}, {
+"base": "Reference",
+"class": "Constants",
+"language": "GDScript",
+"path": "res://script/Constants.gd"
+}, {
+"base": "Label",
+"class": "ElipsisLabel",
+"language": "GDScript",
+"path": "res://script/ElipsisLabel.gd"
+}, {
+"base": "Control",
+"class": "MeshRotatorControl",
+"language": "GDScript",
+"path": "res://script/MeshLineRotator.gd"
+}, {
+"base": "DynamicFontData",
+"class": "MingLiUDynamicFontDataProxy",
+"language": "GDScript",
+"path": "res://res/font/MingLiUFontDataProxy.gd"
+}, {
+"base": "Container",
+"class": "PathConfigContainer",
+"language": "GDScript",
+"path": "res://script/ui/PathConfigContainer.gd"
+}, {
+"base": "Reference",
+"class": "PowershellCommands",
+"language": "GDScript",
+"path": "res://script/Powershell.gd"
+} ]
+_global_script_class_icons={
+"AsyncShellNode": "",
+"Constants": "",
+"ElipsisLabel": "",
+"MeshRotatorControl": "",
+"MingLiUDynamicFontDataProxy": "",
+"PathConfigContainer": "",
+"PowershellCommands": ""
+}
+
+[application]
+
+config/name="apocrypha-installer"
+config/description="Installer/patcher for Cruelty Squad Apocrypha Mode"
+run/main_scene="res://scene/main.tscn"
+boot_splash/image="res://splash.png"
+boot_splash/use_filter=false
+boot_splash/bg_color=Color( 0, 0, 0, 1 )
+config/icon="res://icon.png"
+
+[debug]
+
+gdscript/warnings/return_value_discarded=false
+
+[display]
+
+window/size/width=800
+window/size/height=500
+window/size/resizable=false
+window/size/borderless=true
+window/energy_saving/keep_screen_on=false
+
+[gui]
+
+common/drop_mouse_on_gui_input_disabled=true
+
+[importer_defaults]
+
+texture={
+"flags/filter": false,
+"flags/repeat": 1
+}
+
+[physics]
+
+common/physics_fps=15
+common/enable_pause_aware_picking=true
+3d/active_soft_world=false
+
+[rendering]
+
+misc/lossless_compression/force_png=true
+environment/default_environment="res://default_env.tres"

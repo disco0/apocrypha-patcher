@@ -1,0 +1,468 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://shader/TestsDialogBG.shader" type="Shader" id=1]
+[ext_resource path="res://res/theme/main_theme.tres" type="Theme" id=2]
+[ext_resource path="res://res/texture/sky2-auto-wrap.png" type="Texture" id=3]
+[ext_resource path="res://scene/ui/ConfigPathContainer.tscn" type="PackedScene" id=4]
+[ext_resource path="res://script/main.gd" type="Script" id=5]
+[ext_resource path="res://res/BrainMesh.tres" type="ArrayMesh" id=6]
+[ext_resource path="res://script/MeshLineRotator.gd" type="Script" id=7]
+[ext_resource path="res://script/AsyncShellNode.gd" type="Script" id=8]
+[ext_resource path="res://script/ElipsisLabel.gd" type="Script" id=9]
+[ext_resource path="res://res/font/MingLiU-log.tres" type="DynamicFont" id=10]
+[ext_resource path="res://res/font/MingLiU-title.tres" type="DynamicFont" id=11]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 1 )
+shader_param/xSineCycles = 6.28
+shader_param/ySineCycles = 6.28
+shader_param/speed = 2.0
+shader_param/xDistMag = 0.05
+shader_param/yDistMag = 0.05
+shader_param/alpha_mult = 1.0
+shader_param/albedo_color = Color( 0.34902, 0.290196, 0.101961, 1 )
+shader_param/uv_scale = Vector2( 0.5, 0.5 )
+shader_param/uv_offset = Vector2( 0.9, 0.1 )
+shader_param/albedo_texture = ExtResource( 3 )
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+
+render_mode blend_mul;
+
+uniform float alpha: hint_range(0.0, 1.0, 0.01);
+uniform vec4 color: hint_color;
+uniform bool alpha_oscillate = false;
+
+void fragment()
+{
+	COLOR.xyz = color.xyz;
+	COLOR.w = color.w; //  ? ((sin(TIME) + 0.5) * color.w) : color.w;
+	//ALBEDO = vec3(0.0);
+	//ALPHA = alpha;
+}"
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
+shader_param/alpha = 1.0
+shader_param/color = Color( 0.0745098, 0.776471, 0.682353, 1 )
+shader_param/alpha_oscillate = false
+
+[sub_resource type="StyleBoxFlat" id=4]
+content_margin_left = 24.0
+content_margin_right = 24.0
+content_margin_top = 12.0
+content_margin_bottom = 12.0
+bg_color = Color( 0, 0, 0, 0.878431 )
+border_color = Color( 1, 0, 0, 1 )
+corner_radius_bottom_right = 2
+shadow_color = Color( 0, 0, 0, 0.772549 )
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0, 0, 0, 0.752941 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0, 0, 0, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 1, 0, 0, 1 )
+
+[node name="Main" type="PanelContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_clip_content = true
+theme = ExtResource( 2 )
+script = ExtResource( 5 )
+
+[node name="BG" type="ColorRect" parent="."]
+unique_name_in_owner = true
+material = SubResource( 1 )
+margin_right = 800.0
+margin_bottom = 500.0
+
+[node name="Rotator" type="Control" parent="."]
+unique_name_in_owner = true
+margin_left = 100.0
+margin_right = 700.0
+margin_bottom = 500.0
+rect_min_size = Vector2( 600, 0 )
+size_flags_horizontal = 4
+size_flags_vertical = 3
+script = ExtResource( 7 )
+mesh_fps = 10.0
+mesh_rotation_scale = 1.25
+offset = Vector2( 0, -60 )
+initial_color = Color( 0.917647, 0.972549, 0, 1 )
+
+[node name="Target" type="MeshInstance" parent="Rotator"]
+mesh = ExtResource( 6 )
+skeleton = NodePath("")
+
+[node name="Split" type="VBoxContainer" parent="."]
+margin_right = 800.0
+margin_bottom = 500.0
+
+[node name="Title" type="MarginContainer" parent="Split"]
+margin_right = 800.0
+margin_bottom = 80.0
+size_flags_vertical = 0
+theme_type_variation = "TitleContainer"
+
+[node name="TitleBG" type="ColorRect" parent="Split/Title"]
+unique_name_in_owner = true
+material = SubResource( 3 )
+margin_right = 800.0
+margin_bottom = 80.0
+size_flags_vertical = 3
+
+[node name="TitleMargin" type="MarginContainer" parent="Split/Title"]
+margin_right = 800.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+size_flags_horizontal = 3
+custom_constants/margin_top = 10
+custom_constants/margin_bottom = 10
+
+[node name="PatchButton" type="Button" parent="Split/Title/TitleMargin"]
+unique_name_in_owner = true
+visible = false
+margin_left = 300.0
+margin_top = 10.0
+margin_right = 500.0
+margin_bottom = 70.0
+rect_min_size = Vector2( 200, 0 )
+focus_mode = 0
+size_flags_horizontal = 4
+size_flags_vertical = 15
+theme_type_variation = "FileDialogButton"
+custom_fonts/font = ExtResource( 11 )
+text = "PATCH"
+
+[node name="TitleLabel" type="Label" parent="Split/Title/TitleMargin"]
+unique_name_in_owner = true
+margin_left = 114.0
+margin_top = 10.0
+margin_right = 686.0
+margin_bottom = 70.0
+size_flags_horizontal = 6
+size_flags_vertical = 3
+theme_type_variation = "TitleLabel"
+text = "APOCRYPHA MODE PATCHER"
+valign = 1
+
+[node name="ConfigMargin" type="MarginContainer" parent="Split"]
+margin_left = 76.0
+margin_top = 174.0
+margin_right = 724.0
+margin_bottom = 404.0
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="PanelContainer" type="PanelContainer" parent="Split/ConfigMargin"]
+margin_right = 648.0
+margin_bottom = 230.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 4 )
+
+[node name="Config" type="VBoxContainer" parent="Split/ConfigMargin/PanelContainer"]
+margin_left = 24.0
+margin_top = 12.0
+margin_right = 624.0
+margin_bottom = 218.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 10
+
+[node name="ReleasePckConfig" parent="Split/ConfigMargin/PanelContainer/Config" instance=ExtResource( 4 )]
+unique_name_in_owner = true
+margin_right = 600.0
+margin_bottom = 62.0
+rect_min_size = Vector2( 600, 0 )
+config_name = "RELEASE PCK"
+path_mode = 1
+file_path_filter = "*.pck ; Godot PCK File"
+placeholder = "path/to/crueltysquad.pck"
+
+[node name="OutputDirConfig" parent="Split/ConfigMargin/PanelContainer/Config" instance=ExtResource( 4 )]
+unique_name_in_owner = true
+margin_top = 72.0
+margin_right = 600.0
+margin_bottom = 134.0
+rect_min_size = Vector2( 600, 0 )
+config_name = "OUTPUT FOLDER"
+path_mode = 0
+placeholder = "path/to/out"
+
+[node name="ApocryphaContentDirConfig" parent="Split/ConfigMargin/PanelContainer/Config" instance=ExtResource( 4 )]
+unique_name_in_owner = true
+margin_top = 144.0
+margin_right = 600.0
+margin_bottom = 206.0
+rect_min_size = Vector2( 600, 0 )
+config_name = "PATCHER CONTENT FOLDER"
+path_mode = 0
+placeholder = "path/to/crueltysquad-apoc-dir"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_right = 800.0
+margin_bottom = 500.0
+mouse_filter = 2
+
+[node name="Exit" type="MarginContainer" parent="MarginContainer"]
+margin_left = 700.0
+margin_top = 456.0
+margin_right = 800.0
+margin_bottom = 500.0
+rect_min_size = Vector2( 100, 40 )
+size_flags_horizontal = 12
+size_flags_vertical = 12
+theme_type_variation = "BottomButtonContainer"
+
+[node name="ExitButton" type="Button" parent="MarginContainer/Exit"]
+unique_name_in_owner = true
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 90.0
+margin_bottom = 34.0
+size_flags_horizontal = 15
+size_flags_vertical = 15
+theme_type_variation = "FileDialogButton"
+text = "EXIT"
+
+[node name="Log" type="MarginContainer" parent="MarginContainer"]
+visible = false
+margin_left = 341.0
+margin_top = 456.0
+margin_right = 459.0
+margin_bottom = 500.0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_type_variation = "BottomButtonContainer"
+
+[node name="LogButton" type="Button" parent="MarginContainer/Log"]
+unique_name_in_owner = true
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 108.0
+margin_bottom = 34.0
+theme_type_variation = "FileDialogButton"
+text = "SHOW LOG"
+
+[node name="OpenBuild" type="MarginContainer" parent="MarginContainer"]
+visible = false
+margin_top = 456.0
+margin_right = 140.0
+margin_bottom = 500.0
+mouse_filter = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_type_variation = "BottomButtonContainer"
+
+[node name="OpenBuildButton" type="Button" parent="MarginContainer/OpenBuild"]
+unique_name_in_owner = true
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 130.0
+margin_bottom = 34.0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_type_variation = "FileDialogButton"
+text = "OPEN BUILD"
+
+[node name="Patcher" type="Node" parent="."]
+
+[node name="Shell" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource( 8 )
+
+[node name="SteamSearchContainer" type="MarginContainer" parent="."]
+margin_right = 800.0
+margin_bottom = 500.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_top = 89
+
+[node name="SteamSearchMsg" type="Label" parent="SteamSearchContainer"]
+unique_name_in_owner = true
+margin_left = 61.0
+margin_top = 89.0
+margin_right = 739.0
+margin_bottom = 164.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_type_variation = "StatusLabel"
+text = "FINDING STEAM INSTALL   "
+script = ExtResource( 9 )
+text_base = "FINDING STEAM INSTALL"
+center_offset = Vector2( 0, -122 )
+toplevel = false
+static_size = false
+
+[node name="PatchingOverlay" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+margin_right = 800.0
+margin_bottom = 500.0
+custom_styles/panel = SubResource( 5 )
+
+[node name="PatchingMsg" type="Label" parent="PatchingOverlay"]
+unique_name_in_owner = true
+margin_left = 765.5
+margin_top = 375.0
+margin_right = 1092.5
+margin_bottom = 450.0
+size_flags_horizontal = 4
+theme_type_variation = "StatusLabel"
+text = "PATCHING   "
+script = ExtResource( 9 )
+text_base = "PATCHING"
+center_offset = Vector2( 0, -116 )
+toplevel = false
+static_size = false
+
+[node name="LogOverlay" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+margin_right = 800.0
+margin_bottom = 500.0
+custom_styles/panel = SubResource( 5 )
+
+[node name="Pad" type="MarginContainer" parent="LogOverlay"]
+margin_right = 800.0
+margin_bottom = 500.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 40
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 40
+
+[node name="Panel" type="Panel" parent="LogOverlay/Pad"]
+margin_left = 10.0
+margin_top = 40.0
+margin_right = 790.0
+margin_bottom = 460.0
+custom_styles/panel = SubResource( 6 )
+
+[node name="InnerMargin" type="MarginContainer" parent="LogOverlay/Pad"]
+margin_left = 10.0
+margin_top = 40.0
+margin_right = 790.0
+margin_bottom = 460.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="Split" type="VBoxContainer" parent="LogOverlay/Pad/InnerMargin"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 775.0
+margin_bottom = 415.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 3
+
+[node name="Label" type="Label" parent="LogOverlay/Pad/InnerMargin/Split"]
+margin_right = 770.0
+margin_bottom = 22.0
+text = "LOG"
+align = 1
+
+[node name="ContentScroll" type="ScrollContainer" parent="LogOverlay/Pad/InnerMargin/Split"]
+margin_top = 25.0
+margin_right = 770.0
+margin_bottom = 410.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/bg = SubResource( 7 )
+
+[node name="LogContent" type="RichTextLabel" parent="LogOverlay/Pad/InnerMargin/Split/ContentScroll"]
+unique_name_in_owner = true
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 769.0
+margin_bottom = 384.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/mono_font = ExtResource( 10 )
+custom_fonts/bold_italics_font = ExtResource( 10 )
+custom_fonts/italics_font = ExtResource( 10 )
+custom_fonts/bold_font = ExtResource( 10 )
+custom_fonts/normal_font = ExtResource( 10 )
+text = "AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA
+AAAAAAAAAAA"
+scroll_following = true
+
+[connection signal="pressed" from="Split/Title/TitleMargin/PatchButton" to="." method="_on_PatchButton_pressed"]
+[connection signal="value_changed" from="Split/ConfigMargin/PanelContainer/Config/ReleasePckConfig" to="." method="_on_ReleasePckPath_value_changed"]
+[connection signal="value_changed" from="Split/ConfigMargin/PanelContainer/Config/OutputDirConfig" to="." method="_on_OutputDirPath_value_changed"]
+[connection signal="value_changed" from="Split/ConfigMargin/PanelContainer/Config/ApocryphaContentDirConfig" to="." method="_on_ApocryphaContentDir_value_changed"]
+[connection signal="pressed" from="MarginContainer/Exit/ExitButton" to="." method="_on_ExitButton_pressed"]
+[connection signal="pressed" from="MarginContainer/Log/LogButton" to="." method="_on_LogButton_pressed"]
+[connection signal="pressed" from="MarginContainer/OpenBuild/OpenBuildButton" to="." method="_on_OpenBuildButton_pressed"]

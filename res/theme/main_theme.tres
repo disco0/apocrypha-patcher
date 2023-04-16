@@ -1,0 +1,156 @@
+[gd_resource type="Theme" load_steps=24 format=2]
+
+[ext_resource path="res://res/font/MingLiU-title.tres" type="DynamicFont" id=1]
+[ext_resource path="res://res/font/MingLiU-SystemProxy.tres" type="DynamicFontData" id=2]
+[ext_resource path="res://res/font/MingLiU-dialog.tres" type="DynamicFont" id=3]
+[ext_resource path="res://res/texture/ui/radio-unchecked.png" type="Texture" id=4]
+[ext_resource path="res://res/texture/ui/checkbox-slim-checked.png" type="Texture" id=5]
+[ext_resource path="res://res/texture/ui/checkbox-slim-unchecked.png" type="Texture" id=6]
+[ext_resource path="res://res/texture/ui/radio-checked.png" type="Texture" id=7]
+
+[sub_resource type="StyleBoxFlat" id=8]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color( 0, 0, 0, 1 )
+border_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color( 0, 0, 0, 1 )
+border_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color( 0, 0, 0, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 1 )
+corner_detail = 1
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=12]
+content_margin_left = 20.0
+content_margin_right = 20.0
+bg_color = Color( 0, 0, 0, 0 )
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+content_margin_left = 5.0
+content_margin_right = 5.0
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+bg_color = Color( 0.0156863, 0.0156863, 0.0156863, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+content_margin_left = 5.0
+content_margin_right = 5.0
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+bg_color = Color( 0.12549, 0.12549, 0.12549, 1 )
+
+[sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 0.0352941, 0.0352941, 0.0352941, 1 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 54
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=11]
+content_margin_left = 20.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color( 0, 0, 0, 0.847059 )
+
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="StyleBoxEmpty" id=14]
+content_margin_left = 4.0
+content_margin_right = 4.0
+
+[sub_resource type="StyleBoxEmpty" id=15]
+
+[resource]
+default_font = ExtResource( 3 )
+BottomButtonContainer/base_type = "MarginContainer"
+BottomButtonContainer/constants/margin_bottom = 10
+BottomButtonContainer/constants/margin_left = 10
+BottomButtonContainer/constants/margin_right = 10
+BottomButtonContainer/constants/margin_top = 10
+Button/fonts/font = ExtResource( 3 )
+Button/styles/disabled = SubResource( 8 )
+Button/styles/focus = SubResource( 4 )
+Button/styles/hover = SubResource( 4 )
+Button/styles/normal = SubResource( 4 )
+Button/styles/pressed = SubResource( 4 )
+CheckBox/icons/checked = ExtResource( 5 )
+CheckBox/icons/checked_disabled = ExtResource( 6 )
+CheckBox/icons/radio_checked = ExtResource( 7 )
+CheckBox/icons/radio_checked_disabled = ExtResource( 7 )
+CheckBox/icons/radio_unchecked = ExtResource( 7 )
+CheckBox/icons/radio_unchecked_disabled = ExtResource( 4 )
+CheckBox/icons/unchecked = ExtResource( 6 )
+CheckBox/icons/unchecked_disabled = ExtResource( 6 )
+FileDialogButton/base_type = "Button"
+FileDialogButton/colors/font_color = Color( 1, 0, 0, 1 )
+FileDialogButton/colors/font_color_focus = Color( 1, 0, 0, 1 )
+FileDialogButton/colors/font_color_hover = Color( 1, 0, 0, 1 )
+FileDialogButton/colors/font_color_pressed = Color( 0.32549, 1, 0, 1 )
+FileDialogButton/styles/focus = SubResource( 7 )
+FileDialogButton/styles/hover = SubResource( 7 )
+FileDialogButton/styles/normal = SubResource( 7 )
+FileDialogButton/styles/pressed = SubResource( 7 )
+Label/colors/font_color = Color( 1, 0, 0, 1 )
+Label/fonts/font = ExtResource( 3 )
+LineEdit/fonts/font = ExtResource( 3 )
+LineEdit/styles/focus = SubResource( 6 )
+Panel/styles/panel = null
+PanelContainer/styles/panel = SubResource( 1 )
+PanelTitle/base_type = "Panel"
+PanelTitle/styles/panel = SubResource( 2 )
+PatchButton/base_type = "Button"
+PatchButton/colors/font_color = Color( 1, 0, 0, 1 )
+PatchButton/colors/font_color_hover = Color( 0, 1, 0, 1 )
+PatchButton/colors/font_color_pressed = Color( 0, 1, 0, 1 )
+PatchButton/fonts/font = ExtResource( 1 )
+PatchButton/styles/focus = SubResource( 12 )
+PatchButton/styles/hover = SubResource( 12 )
+PatchButton/styles/normal = SubResource( 12 )
+PatchButton/styles/pressed = SubResource( 12 )
+PathConfigLabel/base_type = "Label"
+PathConfigLabel/styles/normal = SubResource( 9 )
+PathEdit/base_type = "LineEdit"
+PathEdit/styles/normal = SubResource( 5 )
+PathEdit/styles/read_only = SubResource( 3 )
+PopupMenu/icons/checked = ExtResource( 5 )
+PopupMenu/icons/radio_checked = ExtResource( 7 )
+PopupMenu/icons/radio_unchecked = ExtResource( 4 )
+PopupMenu/icons/unchecked = ExtResource( 6 )
+PopupMenu/styles/panel = SubResource( 16 )
+StatusLabel/base_type = "Label"
+StatusLabel/fonts/font = SubResource( 10 )
+StatusLabel/styles/normal = SubResource( 11 )
+TitleLabel/base_type = "Label"
+TitleLabel/colors/font_color = Color( 1, 0, 0, 1 )
+TitleLabel/fonts/font = ExtResource( 1 )
+VBoxContainer/constants/separation = -1
+VScrollBar/styles/grabber = SubResource( 13 )
+VScrollBar/styles/grabber_highlight = SubResource( 13 )
+VScrollBar/styles/grabber_pressed = SubResource( 13 )
+VScrollBar/styles/scroll = SubResource( 14 )
+VScrollBar/styles/scroll_focus = SubResource( 15 )

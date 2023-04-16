@@ -1,0 +1,44 @@
+[gd_resource type="Theme" load_steps=13 format=2]
+
+[ext_resource path="res://res/font/MingLiU-dialog.tres" type="DynamicFont" id=1]
+[ext_resource path="res://res/texture/ui/close.png" type="Texture" id=2]
+[ext_resource path="res://res/texture/ui/arrow_up.png" type="Texture" id=3]
+[ext_resource path="res://res/texture/ui/toggle_visible.png" type="Texture" id=4]
+[ext_resource path="res://res/font/MingLiU-SystemProxy.tres" type="DynamicFontData" id=5]
+[ext_resource path="res://res/texture/ui/reload.png" type="Texture" id=6]
+[ext_resource path="res://res/texture/ui/folder.png" type="Texture" id=7]
+
+[sub_resource type="DynamicFont" id=2]
+size = 20
+font_data = ExtResource( 5 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 1 )
+border_color = Color( 0, 0, 0, 1 )
+
+[resource]
+default_font = ExtResource( 1 )
+FileDialog/icons/folder = ExtResource( 7 )
+FileDialog/icons/parent_folder = ExtResource( 3 )
+FileDialog/icons/reload = ExtResource( 6 )
+FileDialog/icons/toggle_hidden = ExtResource( 4 )
+Label/fonts/font = SubResource( 2 )
+LineEdit/styles/focus = SubResource( 3 )
+LineEdit/styles/normal = SubResource( 4 )
+TooltipLabel/fonts/font = ExtResource( 1 )
+Tree/styles/bg = SubResource( 5 )
+VBoxContainer/constants/separation = 4
+WindowDialog/colors/title_color = Color( 1, 0, 0, 1 )
+WindowDialog/constants/title_height = 24
+WindowDialog/fonts/title_font = ExtResource( 1 )
+WindowDialog/icons/close = ExtResource( 2 )
+WindowDialog/icons/close_highlight = ExtResource( 2 )
+WindowDialog/styles/panel = SubResource( 1 )

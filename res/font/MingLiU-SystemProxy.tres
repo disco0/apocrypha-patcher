@@ -1,0 +1,8 @@
+[gd_resource type="DynamicFontData" load_steps=2 format=2]
+
+[ext_resource path="res://res/font/MingLiUFontDataProxy.gd" type="Script" id=1]
+
+[resource]
+hinting = 1
+font_path = "C:/Windows/Fonts/mingliub.ttc"
+script = ExtResource( 1 )
