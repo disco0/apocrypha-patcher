@@ -4,4 +4,4 @@
 
 Repository for Apocrypha Mode patcher godot project.
 
-For patcher downloads, see [Releases](https://github.com/disco0/apocrypha-moder/releases).
+For prebuilt patcher downloads, see [`apocrypha-mode` Releases](https://github.com/disco0/apocrypha-mode/releases).
